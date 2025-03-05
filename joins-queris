@@ -1,0 +1,55 @@
+Here are different types of SQL JOIN queries:  
+
+### 1. **INNER JOIN**  
+Returns only matching records from both tables.  
+```sql
+SELECT A.column1, B.column2  
+FROM TableA A  
+INNER JOIN TableB B  
+ON A.common_column = B.common_column;
+```
+
+### 2. **LEFT JOIN (LEFT OUTER JOIN)**  
+Returns all records from the left table and matching records from the right table.  
+```sql
+SELECT A.column1, B.column2  
+FROM TableA A  
+LEFT JOIN TableB B  
+ON A.common_column = B.common_column;
+```
+
+### 3. **RIGHT JOIN (RIGHT OUTER JOIN)**  
+Returns all records from the right table and matching records from the left table.  
+```sql
+SELECT A.column1, B.column2  
+FROM TableA A  
+RIGHT JOIN TableB B  
+ON A.common_column = B.common_column;
+```
+
+### 4. **FULL JOIN (FULL OUTER JOIN)**  
+Returns all records when there is a match in either table.  
+```sql
+SELECT A.column1, B.column2  
+FROM TableA A  
+FULL JOIN TableB B  
+ON A.common_column = B.common_column;
+```
+
+### 5. **CROSS JOIN**  
+Returns the Cartesian product of both tables.  
+```sql
+SELECT A.column1, B.column2  
+FROM TableA A  
+CROSS JOIN TableB B;
+```
+
+### 6. **SELF JOIN**  
+Joins a table with itself.  
+```sql
+SELECT A.column1, B.column2  
+FROM TableA A  
+INNER JOIN TableA B  
+ON A.common_column = B.common_column;
+```
+
