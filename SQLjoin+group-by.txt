@@ -1,0 +1,175 @@
+## ✅ 1. **SQL JOIN**
+
+Joins are used to combine rows from two or more tables based on related columns.
+
+### 🔹 Example Scenario:
+
+We have two tables:
+
+#### `Customers` table:
+
+| CustomerID | Name    |
+| ---------- | ------- |
+| 1          | Alice   |
+| 2          | Bob     |
+| 3          | Charlie |
+
+#### `Orders` table:
+
+| OrderID | CustomerID | Amount |
+| ------- | ---------- | ------ |
+| 101     | 1          | 50     |
+| 102     | 2          | 100    |
+| 103     | 1          | 75     |
+| 104     | 3          | 40     |
+
+---
+
+### 🔸 SQL Code: `INNER JOIN`
+
+```sql
+SELECT Customers.Name, Orders.Amount
+FROM Customers
+INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+```
+
+### 🔹 Output:
+
+| Name    | Amount |
+| ------- | ------ |
+| Alice   | 50     |
+| Bob     | 100    |
+| Alice   | 75     |
+| Charlie | 40     |
+
+✅ Here, we're getting customer names along with their order amounts by joining on `CustomerID`.
+
+---
+
+## ✅ 2. **SQL GROUP BY**
+
+`GROUP BY` is used with aggregate functions (like COUNT, SUM, AVG) to group result-set rows that have the same value in specified columns.
+
+---
+
+### 🔸 SQL Code: `GROUP BY`
+
+Let’s use the same `Orders` table to find the **total order amount per customer**.
+
+```sql
+SELECT CustomerID, SUM(Amount) AS TotalAmount
+FROM Orders
+GROUP BY CustomerID;
+```
+
+### 🔹 Output:
+
+| CustomerID | TotalAmount |
+| ---------- | ----------- |
+| 1          | 125         |
+| 2          | 100         |
+| 3          | 40          |
+
+---
+
+### 🔸 SQL Code: `JOIN + GROUP BY`
+
+Let’s combine **JOIN** and **GROUP BY** to show total amount **per customer name**:
+
+```sql
+SELECT Customers.Name, SUM(Orders.Amount) AS TotalAmount
+FROM Customers
+JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+GROUP BY Customers.Name;
+```
+
+### 🔹 Output:
+
+| Name    | TotalAmount |
+| ------- | ----------- |
+| Alice   | 125         |
+| Bob     | 100         |
+| Charlie | 40          |
+
+✅ We're joining both tables and grouping the result by customer name to calculate total order amount.
+
+---
+
+### Summary:
+
+| Concept    | Purpose                                     |
+| ---------- | ------------------------------------------- |
+| `JOIN`     | Combine rows from multiple tables           |
+| `GROUP BY` | Aggregate data based on one or more columns |
+
+
+
+--------
+
+## ✅ Basic Syntax of `CREATE TABLE`
+
+```sql
+CREATE TABLE table_name (
+    column1 datatype constraints,
+    column2 datatype constraints,
+    ...
+);
+```
+
+---
+
+## 🔹 Example: Create `Customers` Table
+
+```sql
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL
+);
+```
+
+### 🔍 Explanation:
+
+* `CustomerID INT`: An integer column for customer ID.
+* `PRIMARY KEY`: Makes sure each `CustomerID` is unique.
+* `Name VARCHAR(100)`: A text column that can hold up to 100 characters.
+* `NOT NULL`: Ensures `Name` must have a value.
+
+---
+
+## 🔹 Example: Create `Orders` Table
+
+```sql
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    Amount DECIMAL(10, 2),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+```
+
+### 🔍 Explanation:
+
+* `Amount DECIMAL(10, 2)`: A decimal column for money (e.g., 100.00).
+* `FOREIGN KEY`: Connects `Orders.CustomerID` to `Customers.CustomerID`, establishing a relationship.
+
+---
+
+## ✅ Inserting Sample Data
+
+```sql
+-- Customers
+INSERT INTO Customers (CustomerID, Name) VALUES (1, 'Alice');
+INSERT INTO Customers (CustomerID, Name) VALUES (2, 'Bob');
+INSERT INTO Customers (CustomerID, Name) VALUES (3, 'Charlie');
+
+-- Orders
+INSERT INTO Orders (OrderID, CustomerID, Amount) VALUES (101, 1, 50.00);
+INSERT INTO Orders (OrderID, CustomerID, Amount) VALUES (102, 2, 100.00);
+INSERT INTO Orders (OrderID, CustomerID, Amount) VALUES (103, 1, 75.00);
+INSERT INTO Orders (OrderID, CustomerID, Amount) VALUES (104, 3, 40.00);
+```
+
+---
+
+
+
